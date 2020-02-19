@@ -16,8 +16,8 @@ template <>
 struct ShaderSource<SymbolIconProgram> {
     static constexpr const char* name = "symbol_icon";
     static constexpr const uint8_t hash[8] = {0x17, 0x8a, 0xb9, 0xa4, 0x9d, 0xd2, 0xe1, 0x90};
-    static constexpr const auto vertexOffset = 50247;
-    static constexpr const auto fragmentOffset = 53077;
+    static constexpr const auto vertexOffset = 50514;
+    static constexpr const auto fragmentOffset = 53344;
 };
 
 constexpr const char* ShaderSource<SymbolIconProgram>::name;
