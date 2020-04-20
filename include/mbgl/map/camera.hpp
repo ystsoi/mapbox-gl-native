@@ -5,7 +5,9 @@
 #include <mbgl/util/unitbezier.hpp>
 #include <mbgl/util/optional.hpp>
 
+#include <array>
 #include <functional>
+#include <tuple>
 
 namespace mbgl {
 
@@ -94,6 +96,25 @@ struct AnimationOptions {
     /** Creates an animation with the specified duration. */
     AnimationOptions(Duration d)
         : duration(d) {}
+};
+
+/** Various options for describing properties of a physical camera hovering over a map.
+    All fields are optional.
+    */
+struct FreeCameraOptions {
+    /** Position of the camera in mercator coordinates */
+    optional<std::array<double, 3>> mercatorPosition;
+
+    /** Focus point on the map where the camera is looking at. Effectively the same value as
+        map center coordinate.
+    */
+    optional<LatLng> focusPoint;
+
+    /** Helper function for setting the mercator position with Lat&Lng and altitude */
+    void setLocation(const LatLng& location, double altitudeMeters);
+
+    /** Helper function for converting mercator position into Lat&Lng and altitude. */
+    std::tuple<LatLng, double> getLocation();
 };
 
 } // namespace mbgl
