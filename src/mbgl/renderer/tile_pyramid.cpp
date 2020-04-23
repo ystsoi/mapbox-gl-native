@@ -16,7 +16,6 @@
 
 #include <cmath>
 #include <algorithm>
-#include <iostream>
 
 namespace mbgl {
 
@@ -121,9 +120,19 @@ void TilePyramid::update(const std::vector<Immutable<style::LayerProperties>>& l
 
         idealTiles = util::tileCover(parameters.transformState, idealZoom, tileZoom);
         if (parameters.mode == MapMode::Tile && idealTiles.size() > 1) {
-            std::clog << "Provided camera options returned %zu tiles, only %s is taken in Tile mode. "
-                      << idealTiles.size() << " "
-                      << util::toString(idealTiles[0]).c_str()) << "\n";
+            mbgl::Log::Warning(mbgl::Event::General,
+                               "Provided camera options returned %zu tiles, only %s is taken in Tile mode.",
+                               idealTiles.size(),
+                               util::toString(idealTiles[0]).c_str());
+           std::size_t idx;
+           for (auto const& id : idealTiles) {
+             mbgl::Log::Warning(mbgl::Event::General,
+                                "Tile %zu: %s",
+                                idx,
+                                util::toString(id).c_str());
+                                ++idx;
+           }
+
             idealTiles = {idealTiles[0]};
         }
     }
