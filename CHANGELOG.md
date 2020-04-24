@@ -32,6 +32,10 @@
 
   CJK characters are now laid out according to the font, so fonts with nonsquare glyphs have the correct kerning. This also fixes an issue where the baseline for CJK characters was too low compared to non-CJK characters.
 
+### Bug fixes
+
+- [ios, macos] Fixed error receiving local file URL response ([#16428](https://github.com/mapbox/mapbox-gl-native/pull/16428))
+
 ## maps-v1.6.0-rc.1
 
 ### ✨ New features
