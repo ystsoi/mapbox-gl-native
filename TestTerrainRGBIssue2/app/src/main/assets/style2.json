@@ -1,0 +1,20 @@
+{
+  "sources": {
+    "terrain": {
+      "tiles": ["asset://terrain/{z}/{x}/{y}.png"],
+      "type": "raster-dem",
+      "minzoom": 11,
+      "maxzoom": 11,
+      "tileSize": 256
+    }
+  },
+  "layers": [
+    {
+      "id": "terrain",
+      "type": "hillshade",
+      "source": "terrain",
+      "layout": {},
+      "paint": {}
+    }
+  ]
+}
