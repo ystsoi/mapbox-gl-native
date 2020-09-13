@@ -89,12 +89,21 @@ void GeometryTileRenderData::upload(gfx::UploadPass& uploadPass) {
     assert(atlasTextures);
 
     if (layoutResult->glyphAtlasImage) {
+        // CUSTOM - Update texture if possible, instead of always creating a new one.
+        if (!atlasTextures->glyph) {
         atlasTextures->glyph = uploadPass.createTexture(*layoutResult->glyphAtlasImage);
+        } else {
+            uploadPass.updateTexture(*atlasTextures->glyph, *layoutResult->glyphAtlasImage);
+        }
         layoutResult->glyphAtlasImage = {};
     }
 
     if (layoutResult->iconAtlas.image.valid()) {
+        if (!atlasTextures->icon) {
         atlasTextures->icon = uploadPass.createTexture(layoutResult->iconAtlas.image);
+        } else {
+            uploadPass.updateTexture(*atlasTextures->icon, layoutResult->iconAtlas.image);
+        }
         layoutResult->iconAtlas.image = {};
     }
 

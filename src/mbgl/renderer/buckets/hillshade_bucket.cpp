@@ -31,8 +31,11 @@ void HillshadeBucket::upload(gfx::UploadPass& uploadPass) {
         return;
     }
 
+    // CUSTOM - Prevent creating texture for DEM data repeatedly.
+    if (!dem) {
     const PremultipliedImage* image = demdata.getImage();
     dem = uploadPass.createTexture(*image);
+    }
 
     if (!vertices.empty()) {
         vertexBuffer = uploadPass.createVertexBuffer(std::move(vertices));
