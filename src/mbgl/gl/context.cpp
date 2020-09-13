@@ -205,14 +205,18 @@ void Context::verifyProgramLinkage(ProgramID program_) {
 }
 
 UniqueTexture Context::createUniqueTexture() {
-    if (pooledTextures.empty()) {
-        pooledTextures.resize(TextureMax);
-        MBGL_CHECK_ERROR(glGenTextures(TextureMax, pooledTextures.data()));
-        stats.numCreatedTextures += TextureMax;
-    }
+    // CUSTOM - Not use texture pool to prevent issues in emulator.
+    //if (pooledTextures.empty()) {
+    //    pooledTextures.resize(TextureMax);
+    //    MBGL_CHECK_ERROR(glGenTextures(TextureMax, pooledTextures.data()));
+    //    stats.numCreatedTextures += TextureMax;
+    //}
 
-    TextureID id = pooledTextures.back();
-    pooledTextures.pop_back();
+    //TextureID id = pooledTextures.back();
+    //pooledTextures.pop_back();
+    TextureID id;
+    MBGL_CHECK_ERROR(glGenTextures(1, &id));
+    stats.numCreatedTextures++;
     stats.numActiveTextures++;
     // NOLINTNEXTLINE(performance-move-const-arg)
     return UniqueTexture{std::move(id), {this}};

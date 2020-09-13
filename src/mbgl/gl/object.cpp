@@ -23,11 +23,12 @@ void BufferDeleter::operator()(BufferID id) const {
 
 void TextureDeleter::operator()(TextureID id) const {
     assert(context);
-    if (context->pooledTextures.size() >= TextureMax) {
+    // CUSTOM - Not use texture pool to prevent issues in emulator.
+    //if (context->pooledTextures.size() >= TextureMax) {
         context->abandonedTextures.push_back(id);
-    } else {
-        context->pooledTextures.push_back(id);
-    }
+    //} else {
+    //    context->pooledTextures.push_back(id);
+    //}
     context->renderingStats().numActiveTextures--;
     assert(context->renderingStats().numActiveTextures >= 0);
 }
